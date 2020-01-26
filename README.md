@@ -4,9 +4,9 @@
   
 **References**
 
--> Leetcode
--> GeeksforGeeks
--> Narsimha Karumanchi
+Leetcode
+GeeksforGeeks
+Narsimha Karumanchi
 
 **Coding Style**
 
