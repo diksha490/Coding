@@ -1,4 +1,4 @@
-** Remove All Adjacent Duplicates In String**
+**Remove All Adjacent Duplicates In String**
   
 Given a string S of lowercase letters, a duplicate removal consists of choosing two adjacent and equal letters, and removing them.
 
