@@ -1,0 +1,61 @@
+class MinStack {
+
+    /** initialize your data structure here. */
+    Stack<Integer> stk1=new Stack<Integer>();
+    Stack<Integer> stk2=new Stack<Integer>();
+    public MinStack() {
+        
+    }
+    
+    public void push(int x) {
+        if(stk1.isEmpty())
+        {
+            stk1.push(x);
+            stk2.push(x);
+        }
+        else
+        {
+            if(x<=stk2.peek())
+            {
+                stk2.push(x);
+            }
+            stk1.push(x);
+        }
+            
+        
+    }
+    
+    public void pop() { 
+        if(!stk1.isEmpty())
+        {
+            int y=stk1.pop();
+            if(y==stk2.peek())
+                 stk2.pop();
+        }
+    }
+    
+    public int top() {
+            if(!stk1.isEmpty())
+                 return stk1.peek();
+          
+        return -1;
+        
+    }
+    
+    public int getMin() {
+         if(!stk2.isEmpty())
+              return stk2.peek();
+        
+        return -1;
+        
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
