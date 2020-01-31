@@ -1,0 +1,27 @@
+import java.util.Stack;
+public class Main
+{
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		Stack<Integer> stck=new Stack<Integer>();
+		stck.push(3);
+		stck.push(2);
+		stck.push(4);
+		Stack<Integer> s=sort(stck);
+		while(!s.empty())
+		   System.out.println(s.pop());
+	
+	}
+	public static Stack sort(Stack<Integer> stck1)
+	{
+	    Stack<Integer> stck2=new Stack<Integer>();
+	    while(!stck1.empty())
+	    {
+	        int temp=stck1.pop();
+	        while(!stck2.empty()&&stck2.peek()>temp)
+	              stck1.push(stck2.pop());
+	       stck2.push(temp);           
+	    }
+	    return stck2;
+	}
+}
