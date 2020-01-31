@@ -1,0 +1,30 @@
+class StockSpanner {
+    
+    Stack<Integer> stck;
+
+
+    public StockSpanner() {
+        stck=new Stack<Integer>();
+    }
+    
+    public int next(int price) {
+        int count=1;
+        while(!stck.isEmpty() && stck.peek() <= price)
+        {
+            stck.pop();
+            count+=stck.pop();
+                
+        }
+        stck.push(count);
+        stck.push(price);
+        
+        return count;
+        
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
