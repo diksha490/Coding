@@ -1,0 +1,35 @@
+import java.util.Stack;
+public class Main
+{
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		System.out.println(isPalindrome("abXa"));
+		System.out.println(isPalindrome("abXb"));
+		System.out.println(isPalindrome("abXcd"));
+		System.out.println(isPalindrome("aabXbaa"));
+		System.out.println(isPalindrome("aX"));
+		
+	}
+   public static boolean isPalindrome(String str)
+   {
+       int i=0;
+       Stack<Character> stck=new Stack<Character>();
+       while(str.charAt(i)!='X')
+       {
+           stck.push(str.charAt(i));
+           i++;
+       }
+       int j=i+1;
+       while(!stck.empty()&&j<str.length())
+       {
+           if(str.charAt(j)!=stck.pop())
+                    return false;
+           j++;            
+       }
+       if(!stck.empty()||j<str.length())
+            return false;
+       return true;        
+   }
+}
+
+
