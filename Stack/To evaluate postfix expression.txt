@@ -1,0 +1,51 @@
+import java.util.Stack;
+public class Main
+{
+	public static void main(String[] args) {
+		int result=evaluation("123*+5-");
+		System.out.println(result);
+	}
+	public static int evaluation(String str)
+	{
+	    int op1,op2,tempRes;
+	    Stack<Integer> stck=new Stack<Integer>();
+	    for(int i=0;i<str.length();i++)
+	    {
+	       if(str.charAt(i)=='+')
+	       {
+	           op1=stck.pop();
+	           op2=stck.pop();
+	           tempRes=op1+op2;
+	           stck.push(tempRes);
+	       }
+	       else if(str.charAt(i)=='-')
+	       {
+	           op1=stck.pop();
+	           op2=stck.pop();
+	           tempRes=op1-op2;
+	           stck.push(tempRes);
+	       }
+	       else if(str.charAt(i)=='*')
+	       {
+	           op1=stck.pop();
+	           op2=stck.pop();
+	           tempRes=op1*op2;
+	           stck.push(tempRes);
+	       }
+	       else if(str.charAt(i)=='/')
+	       {
+	           op1=stck.pop();
+	           op2=stck.pop();
+	           tempRes=op1/op2;
+	           stck.push(tempRes);
+	       }
+	       else
+	       {
+	         String c=str.charAt(i);
+	         stck.push(Integer.parseInt(c));
+	       }  
+	    }
+	    return stck.pop();
+	}
+}
+
