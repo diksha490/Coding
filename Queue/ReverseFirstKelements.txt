@@ -1,0 +1,59 @@
+package reversekelements;
+import java.util.*;
+
+
+public class ReverseKElements {
+
+    static Stack<Integer> stck=new Stack<>();
+    
+    public static void reverseKelements(Queue<Integer> queue,int k)
+    {
+        if(queue.isEmpty()||k==0)
+            return;
+        if(k>queue.size())
+            return;
+        for(int i=0;i<k;i++)
+        {
+            stck.push(queue.peek());
+            queue.remove();
+        }
+        
+        while(!stck.isEmpty())
+        {
+            queue.add(stck.peek());
+            stck.pop();
+        }
+        
+        for(int i=0;i<queue.size()-k;i++)
+        {
+            int temp=queue.remove();
+            queue.add(temp);
+        }
+        
+    }
+    
+    public static void printQueue(Queue<Integer> queue)
+    {
+        while(!queue.isEmpty())
+        {
+            System.out.println(queue.peek());
+            queue.remove();
+        }   
+    }
+    
+    public static void main(String[] args) {
+        
+        Queue<Integer> queue=new LinkedList<>();
+        queue.add(10);
+        queue.add(20);
+        queue.add(30);
+        queue.add(40);
+        queue.add(50);
+        reverseKelements(queue,3);
+        printQueue(queue);
+        
+    
+    }
+    
+}
+
