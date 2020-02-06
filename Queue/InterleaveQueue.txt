@@ -1,0 +1,62 @@
+package interleavequeue;
+import java.util.*;
+
+
+public class InterleaveQueue {
+
+    public static void interleave(Queue<Integer> queue)
+    {
+        Queue<Integer> temp=new LinkedList<>();
+        Queue<Integer> result=new LinkedList<>();
+        
+        int size=queue.size();
+        if(size%2!=0)
+        {   
+            System.out.println("enter even number of integers");
+            return;
+        }   
+        int half=size/2;
+        for(int i=0;i<half;i++)
+            temp.add(queue.remove());
+        
+        while(!queue.isEmpty() && !temp.isEmpty())
+        {
+            result.add(temp.remove());
+            result.add(queue.remove());
+        }
+        
+        while(!result.isEmpty())
+            queue.add(result.remove());
+        
+    }
+    
+    public static void printQueue(Queue<Integer> queue)
+    {
+        while(!queue.isEmpty())
+        {
+            System.out.println(queue.remove()+" ");
+        }
+    }
+    
+    
+    public static void main(String[] args) {
+        
+        Queue<Integer> queue=new LinkedList<>();
+        queue.add(10);
+        queue.add(20);
+        queue.add(30);
+        queue.add(40);
+        queue.add(50);
+        queue.add(60);
+        queue.add(70);
+        queue.add(80);
+        queue.add(90);
+        queue.add(100);
+        
+        interleave(queue);
+        printQueue(queue);
+        
+    }
+    
+   
+}
