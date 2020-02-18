@@ -1,0 +1,79 @@
+A stack permutation is a permutation of objects in the given input queue which is done by transferring elements from input queue 
+to the output queue with the help of a stack and the built-in push and pop functions.
+
+Examples:
+Input : First array: 1, 2, 3  
+        Second array: 2, 1, 3
+Output : Yes
+Procedure:
+push 1 from input to stack
+push 2 from input to stack
+pop 2 from stack to output
+pop 1 from stack to output
+push 3 from input to stack
+pop 3 from stack to output
+
+
+Input : First array: 1, 2, 3  
+        Second array: 3, 1, 2
+Output : Not Possible  
+
+
+//CODE
+
+package stackpermutation;
+
+import java.util.*;
+public class StackPermutation {
+
+    public static void main(String[] args) {
+        
+        int inputArray[]={1,2,3};
+        int outputArray[]={3,1,2};
+        
+        boolean result=checkPermutation(inputArray,outputArray);
+        
+        System.out.println(result);
+         
+        // TODO code application logic here
+    }
+    
+    public static boolean checkPermutation(int array1[],int array2[])
+    {
+        Queue<Integer> input=new LinkedList<Integer>();
+        for(int i:array1)
+            input.add(i);
+        
+        Queue<Integer> output=new LinkedList<Integer>();
+        for(int i:array2)
+            output.add(i);
+        
+        Stack<Integer> stck=new Stack<Integer>();
+        while(!input.isEmpty())
+        {
+            int ele=input.poll();
+            if(ele==output.peek())
+            {    
+                output.poll();
+                while(!stck.isEmpty())
+                {
+                    if(stck.peek()==output.peek())
+                    {
+                        stck.pop();
+                        output.poll();
+                    }
+                    else
+                        break;
+                }
+            }
+            else
+                stck.push(ele);
+        } 
+        
+        return (input.isEmpty()&& stck.isEmpty());
+            
+        
+    }
+    
+    
+}
