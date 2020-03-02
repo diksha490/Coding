@@ -1,0 +1,46 @@
+Given a binary tree, return the preorder traversal of its nodes' values.
+
+Example:
+
+Input: [1,null,2,3]
+   1
+    \
+     2
+    /
+   3
+
+Output: [1,2,3]
+
+//CODE
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result=new ArrayList<Integer>();
+        Stack<TreeNode> stck=new Stack<TreeNode>();
+    
+        if(root==null)
+            return result;
+        stck.push(root);
+        TreeNode temp;
+        while(!stck.isEmpty())
+        {
+            temp=stck.pop();
+            result.add(temp.val);
+            if(temp.right!=null)
+                stck.push(temp.right);
+            if(temp.left!=null)
+                stck.push(temp.left);
+        }
+        return result;
+                      
+    }
+}
