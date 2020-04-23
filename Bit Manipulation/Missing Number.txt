@@ -1,0 +1,81 @@
+Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
+
+Example 1:
+Input: [3,0,1]
+Output: 2
+
+Example 2:
+Input: [9,6,4,2,3,5,7,0,1]
+Output: 8
+
+SOLUTION 1:-
+class Solution {
+    public int missingNumber(int[] nums) {
+        Arrays.sort(nums);
+        if(nums[0]!=0)
+            return 0;
+        if(nums[nums.length-1]!=nums.length)
+              return nums.length;
+        int expected=0;
+        for(int i=0;i<nums.length;i++)
+        {
+            if(expected==nums[i])
+                 expected++;
+            else 
+                return expected;
+         }
+        return -1;
+        
+    }
+}
+
+SOLUTION 2:-
+class Solution {
+    public int missingNumber(int[] nums) {
+        HashSet<Integer> hs=new HashSet<Integer>();
+        for(int i=0;i<nums.length;i++)
+            hs.add(nums[i]);
+        int expected=0;
+        for(int i=0;i<nums.length+1;i++)
+        {
+            if(!hs.contains(expected))
+                return expected;
+            else
+                expected++;
+        }
+        return -1;
+        
+    }
+}
+
+SOLUTION 3:-
+class Solution {
+    public int missingNumber(int[] nums) {
+        int n=nums.length;
+        int sum=(n*(n+1))/2;
+        for(int i=0;i<n;i++)
+            sum=sum-nums[i];
+        return sum;
+       
+        
+    }
+}
+
+SOLUTION 4:-
+class Solution {
+    public int missingNumber(int[] nums) {
+        int xor1=0;
+        int xor2=nums[0];
+        for(int i=1;i<nums.length+1;i++)
+            xor1=xor1^i;
+        for(int i=1;i<nums.length;i++)
+            xor2=xor2^nums[i];
+        return xor1^xor2;
+       
+        
+    }
+}
+
+
+
+
