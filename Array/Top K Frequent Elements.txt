@@ -1,0 +1,62 @@
+Given a non-empty array of integers, return the k most frequent elements.
+
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+
+SOLUTION :-
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        PriorityQueue<Pair> q=new PriorityQueue<>(k,new Helper());
+        int result[]=new int[k];
+        
+        for(int i=0;i<nums.length;i++)
+        {
+            if(!map.containsKey(nums[i]))
+                map.put(nums[i],1);
+            else
+                map.put(nums[i],map.get(nums[i])+1);
+        }
+        
+        for(Map.Entry<Integer,Integer> e:map.entrySet())
+        {
+            int el=(int)e.getKey();
+            int val=(int)e.getValue();
+            q.add(new Pair(el,val));
+        }
+        int output[]=new int[k];
+        k=0;
+        while(q.size()>0&&k<output.length)
+        {
+            Pair p=q.remove();
+            output[k++]=p.val;
+        }
+        return output;
+    }
+}
+
+class Helper implements Comparator<Pair>
+{
+    public int compare(Pair a,Pair b)
+    {
+       return b.freq-a.freq;
+    }
+}
+
+class Pair
+{
+    int val;
+    int freq;
+    Pair(int val,int freq)
+    {
+        this.val=val;
+        this.freq=freq;
+    }
+}
