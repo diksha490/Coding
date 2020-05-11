@@ -1,0 +1,56 @@
+Given an array of integers, every element appears thrice except for one which occurs once.
+
+Find that element which does not appear thrice.
+
+SOLUTION 1:-
+
+public class Solution {
+    public int singleNumber(final List<Integer> A) {
+        int result = 0; 
+        int x, sum; 
+          
+        // Iterate through every bit 
+        for(int i=0; i<32; i++) 
+        { 
+            // Find sum of set bits at ith position in all  
+            // array elements 
+            sum = 0; 
+            x = (1 << i); 
+            for(int j=0; j<A.size(); j++) 
+            { 
+                if((A.get(j) & x) == 0) 
+                sum++; 
+            } 
+            // The bits with sum not multiple of 3, are the 
+            // bits of element with single occurrence. 
+            if ((sum % 3) == 0) 
+            result |= x; 
+        } 
+        return result; 
+    }
+}
+
+SOLUTION 2:-
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+        for(int i=0;i<nums.length;i++)
+        {
+            if(!map.containsKey(nums[i]))
+                map.put(nums[i],1);
+            else
+            {
+                int val=map.get(nums[i]);
+                map.put(nums[i],val+1);
+             }        
+        }
+       for (Map.Entry<Integer,Integer> entry : map.entrySet())  
+       {  
+           if(entry.getValue()==1)
+               return entry.getKey();
+       }
+        return -1;
+        
+    }
+}
