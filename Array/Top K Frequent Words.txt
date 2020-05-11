@@ -1,0 +1,67 @@
+Given a non-empty list of words, return the k most frequent elements.
+
+Your answer should be sorted by frequency from highest to lowest. If two words have the same frequency, then the word with the
+ lower alphabetical order comes first.
+
+Example 1:
+Input: ["i", "love", "leetcode", "i", "love", "coding"], k = 2
+Output: ["i", "love"]
+Explanation: "i" and "love" are the two most frequent words.
+ Note that "i" comes before "love" due to a lower alphabetical order.
+
+Example 2:
+Input: ["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], k = 4
+Output: ["the", "is", "sunny", "day"]
+Explanation: "the", "is", "sunny" and "day" are the four most frequent words, with the number of occurrence being 4, 3, 2 and 1 respectively.
+
+SOLUTION:-
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        HashMap<String,Integer> map=new HashMap<>();
+        PriorityQueue<Pair> q=new PriorityQueue<>(k,new Helper());
+        ArrayList<String> output=new ArrayList<>();
+        
+        for(int i=0;i<words.length;i++)
+        {
+            if(!map.containsKey(words[i]))
+                map.put(words[i],1);
+            else
+                map.put(words[i],map.get(words[i])+1);
+        }
+        
+        for(Map.Entry<String,Integer> e:map.entrySet())
+        {
+            String el=e.getKey();
+            int val=(int)e.getValue();
+            q.add(new Pair(el,val));
+        }
+        while(q.size()>0 && k>0)
+        {
+            Pair p=q.remove();
+            output.add(p.val);
+            k--;
+        }
+        return output;
+        
+    }
+}
+class Helper implements Comparator<Pair>
+{
+    public int compare(Pair a,Pair b)
+    {
+      if(a.freq==b.freq)
+          return a.val.compareTo(b.val);
+       return b.freq-a.freq;
+    }
+}
+
+class Pair
+{
+    String val;
+    int freq;
+    Pair(String val,int freq)
+    {
+        this.val=val;
+        this.freq=freq;
+    }
+}
