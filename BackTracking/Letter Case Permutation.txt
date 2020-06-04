@@ -1,0 +1,44 @@
+Given a string S, we can transform every letter individually to be lowercase or uppercase to create another
+ string.  Return a list of all possible strings we could create.
+
+Examples:
+Input: S = "a1b2"
+Output: ["a1b2", "a1B2", "A1b2", "A1B2"]
+
+Input: S = "3z4"
+Output: ["3z4", "3Z4"]
+
+Input: S = "12345"
+Output: ["12345"]
+
+SOLUTION:-
+class Solution {
+    List<String> list;
+    boolean visit[];
+    public List<String> letterCasePermutation(String S) {
+        list=new ArrayList<String>();
+        visit=new boolean[S.length()];
+        StringBuilder sb=new StringBuilder(S);
+        dfs(sb,0);
+        return list;
+    }
+  public void dfs(StringBuilder sb,int cur)
+  {
+    list.add(sb.toString());
+    for(int i=cur;i<sb.length();i++)
+    {
+      if(!visit[i]&&Character.isAlphabetic(sb.charAt(i)))
+      {
+        visit[i]=true;
+        char ch=sb.charAt(i);
+        if(Character.isLowerCase(ch))
+          sb.setCharAt(i,Character.toUpperCase(ch));
+        else
+          sb.setCharAt(i,Character.toLowerCase(ch));
+        dfs(sb,i);
+        visit[i]=false;   //backtack
+        sb.setCharAt(i,ch);
+      }
+    }
+  }
+}
