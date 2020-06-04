@@ -1,0 +1,67 @@
+Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+
+Example 1:
+
+Input:
+[
+ [ 1, 2, 3 ],
+ [ 4, 5, 6 ],
+ [ 7, 8, 9 ]
+]
+Output: [1,2,3,6,9,8,7,4,5]
+Example 2:
+
+Input:
+[
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9,10,11,12]
+]
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+
+SOLUTION:-
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        if(matrix.length==0)
+            return new ArrayList<Integer>();
+        int m=matrix.length;
+        int n=matrix[0].length;
+        ArrayList<Integer> list=new ArrayList<>(m*n);
+        int visit[][]=new int[m][n];
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                visit[i][j]=-1;
+        
+        int x=0;
+        int y=0;
+        visit[0][0]=1;
+        list.add(matrix[0][0]);
+        int movex[]={0,1,0,-1};
+        int movey[]={1,0,-1,0};
+        int count=1;
+        for(int i=0;i<4;i++)
+        {
+            x=x+movex[i];
+            y=y+movey[i];
+            while(isValid(visit,x,y))
+            {
+                list.add(matrix[x][y]);
+                visit[x][y]=1;
+                x=x+movex[i];
+                y=y+movey[i];
+                count++;
+            }
+            x=x-movex[i];
+            y=y-movey[i];
+            if(i==3 && count<m*n)
+              i=-1;
+        }
+       return list; 
+    }
+    public boolean isValid(int visit[][],int x,int y)
+    {
+       if(x>=0 && y>=0 && x<visit.length && y<visit[0].length && visit[x][y]==-1)
+           return true;
+        return false;
+    }
+}
