@@ -1,0 +1,45 @@
+Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
+
+Example:
+
+Input: n = 4, k = 2
+Output:
+[
+  [2,4],
+  [3,4],
+  [2,3],
+  [1,2],
+  [1,3],
+  [1,4],
+]
+
+SOLUTION:-
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+      List<List<Integer>> result=new ArrayList<>();
+      List<Integer> list=new ArrayList<>();
+      boolean visit[]=new boolean[n];
+      helper(n,k,list,result,visit,1);
+      return result;
+        
+    }
+   public void helper(int n,int k,List<Integer> list,List<List<Integer>> result,boolean visit[],int index)
+   {
+     if(list.size()==k || index==n)
+     {
+       result.add(new ArrayList(list));
+       return;
+     }
+     for(int i=index;i<=n;i++)
+     {
+       if(visit[i-1]==false)
+       {
+         list.add(i);
+         visit[i-1]=true;
+         helper(n,k,list,result,visit,index+1);
+         visit[i-1]=false;
+         list.remove(list.size()-1);
+       }
+     }
+   }
+}
