@@ -1,0 +1,89 @@
+The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+
+Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and
+an empty space respectively.
+
+Example:
+
+Input: 4
+Output: [
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
+
+SOLUTION:-
+
+class Solution {
+    List<List<String>> list=new ArrayList<>();
+    public List<List<String>> solveNQueens(int n) {
+        int board[][]=new int[n][n];
+        solveNQ(board,n,0);
+        return list;
+    }
+    
+   public boolean solveNQ(int board[][],int n,int col)
+   {
+     if(col>=n)
+     { 
+       convert(board,n);
+     }  
+     
+     for(int i=0;i<n;i++)                 //check for each row for that particular column
+     {
+       if(isSafe(board,i,col))
+       {
+         board[i][col]=1;
+         if(solveNQ(board,n,col+1))
+           return true;
+         board[i][col]=0;
+       }
+     }
+    return false; 
+   }
+   
+  public boolean isSafe(int board[][],int row,int col)
+   {
+     int n=board.length;
+     for(int i=0;i<col;i++)                    //checking for left side of that row
+       if(board[row][i]==1)
+         return false;
+     
+    for(int i=row,j=col;i>=0 && j>=0;i--,j--)  //left upper diagonal
+      if(board[i][j]==1)
+        return false;
+     
+     for(int i=row,j=col;i<n && j>=0;i++,j--)  //left upper diagonal
+      if(board[i][j]==1)
+        return false; 
+    return true;
+     
+  }
+  
+  public void convert(int board[][],int n)
+  {
+    List<String> temp=new ArrayList<>();
+    for(int i=0;i<n;i++)
+    {
+      StringBuilder sb=new StringBuilder();
+      for(int j=0;j<n;j++)
+      {
+        if(board[i][j]==0)
+          sb.append('.');
+        else
+          sb.append('Q');
+      }
+      temp.add(sb.toString());
+    }
+    list.add(temp);
+  }
+}           
