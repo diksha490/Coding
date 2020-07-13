@@ -1,0 +1,54 @@
+(#Leetcode 131) Palindrome Partitioning
+
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+Example:
+
+Input: "aab"
+Output:
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+
+SOLUTION:-
+
+class Solution {
+    List<List<String>> result=new ArrayList<>();
+    public List<List<String>> partition(String s)
+    {
+        List<String> list=new ArrayList<>();
+        dfs(s,list,0);
+        return result;
+    }
+  
+    public void dfs(String s,List<String> list,int index)
+    {
+      if(index==s.length())
+      {
+        result.add(new ArrayList<>(list));
+        return;
+      }
+      for(int i=index;i<s.length();i++)
+      {
+         if(isPalindrome(s.substring(index,i+1)))
+         {
+           list.add(s.substring(index,i+1));
+           dfs(s,list,i+1);
+           list.remove(list.size()-1);
+         }
+      }
+    }
+   
+    public boolean isPalindrome(String str)
+    {
+      if(str.length()==1)
+        return true;
+      for(int i=0,j=str.length()-1;i<j;i++,j--)
+        if(str.charAt(i)!=str.charAt(j))
+          return false;
+      return true;
+    }
+}

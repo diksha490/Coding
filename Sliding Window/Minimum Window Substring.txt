@@ -1,0 +1,58 @@
+76. Minimum Window Substring
+
+Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+
+Example:
+
+Input: S = "ADOBECODEBANC", T = "ABC"
+Output: "BANC"
+Note:
+
+If there is no such window in S that covers all characters in T, return the empty string "".
+If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
+
+SOLUTION:-
+
+class Solution {
+    public String minWindow(String s, String t) {
+      int slen=s.length();
+      int tlen=t.length();
+      if(slen<tlen)
+        return "";
+      int sarr[]=new int[256];
+      int tarr[]=new int[256];
+      
+      for(int i=0;i<tlen;i++)
+      {
+        tarr[t.charAt(i)]++;
+      }
+      int start=0,startindex=-1,minLen=Integer.MAX_VALUE;
+      int count=0;
+      for(int j=0;j<slen;j++)
+      {
+        sarr[s.charAt(j)]++;
+        if(tarr[s.charAt(j)]!=0 && sarr[s.charAt(j)]<=tarr[s.charAt(j)])
+          count++;
+        if(count==tlen)
+        {
+          while(sarr[s.charAt(start)]>tarr[s.charAt(start)] || tarr[s.charAt(start)]==0)
+          {
+            if(sarr[s.charAt(start)]>tarr[s.charAt(start)])
+              sarr[s.charAt(start)]--;
+            start++;
+          }
+         int len_window=j-start+1;
+         if(minLen>len_window)
+         {
+           minLen=len_window;
+           startindex=start;
+         }
+        }
+      }
+      if(startindex==-1)
+        return "";
+      return s.substring(startindex,startindex+minLen);
+        
+        
+    }
+}

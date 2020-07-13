@@ -1,0 +1,66 @@
+767. Reorganize String
+
+Given a string S, check if the letters can be rearranged so that two characters that are adjacent to each other are not the same.
+
+If possible, output any possible result.  If not possible, return the empty string.
+
+Example 1:
+
+Input: S = "aab"
+Output: "aba"
+Example 2:
+
+Input: S = "aaab"
+Output: ""
+
+SOLUTION:-
+
+class Solution {
+    public String reorganizeString(String S) 
+    {
+       if(S==null || S.length()==0)
+         return S;
+       if(S.length()==2)
+       {
+         if(S.charAt(0)==S.charAt(1))
+           return "";
+       }
+      
+      char arr[]=S.toCharArray();
+      int count[]=new int[26];
+      int max=0;
+      char maxchar='\0';
+      for(char c:arr)
+      { 
+        count[c-'a']++;
+        if(count[c-'a']>max)
+        {
+          max=count[c-'a'];
+          maxchar=c;
+        }
+      } 
+      if(max+max-1>arr.length)  //to check while placing alternate maxchar does not excced size of array
+         return "";
+      int i=0;
+      while(count[maxchar-'a']>0)
+      {
+        arr[i]=maxchar;
+        i+=2;
+        count[maxchar-'a']--;
+      }
+      
+      for(char c='a';c<='z';c++)
+      {
+        while(count[c-'a']>0)
+        {
+          if(i>=arr.length)
+            i=1;
+          arr[i]=c;
+          count[c-'a']--;
+          i+=2;
+        }
+      }
+      return String.valueOf(arr);
+      
+    }
+}

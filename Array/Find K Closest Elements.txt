@@ -1,0 +1,53 @@
+658. Find K Closest Elements
+
+Given a sorted array arr, two integers k and x, find the k closest elements to x in the array. The result should also be sorted in ascending order. If there is a tie, the smaller elements are always preferred.
+
+Example 1:
+
+Input: arr = [1,2,3,4,5], k = 4, x = 3
+Output: [1,2,3,4]
+
+Example 2:
+
+Input: arr = [1,2,3,4,5], k = 4, x = -1
+Output: [1,2,3,4]
+
+SOLUTION:-
+
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+      List<Integer> result=new ArrayList<>(k);
+      List<Pair> list=new ArrayList<>();
+      for(int i=0;i<arr.length;i++)
+        list.add(new Pair(i,Math.abs(x-arr[i])));
+      
+      list.sort(new Comparator<Pair>(){
+        public int compare(Pair p1,Pair p2)
+        {
+          if(p1.diff!=p2.diff)
+            return p1.diff-p2.diff;
+          else
+            return arr[p1.index]-arr[p2.index];
+        }
+      });
+      
+      for(int i=0;i<k;i++)
+      { 
+        int ind=list.get(i).index;
+        result.add(arr[ind]);
+      } 
+     Collections.sort(result);
+     return result;
+        
+    }
+}
+class Pair
+{
+  int index;
+  int diff;
+  Pair(int index,int diff)
+  {
+    this.index=index;
+    this.diff=diff;
+  }
+}
